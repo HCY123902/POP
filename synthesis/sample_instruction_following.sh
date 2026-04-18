@@ -1,0 +1,1 @@
+MODEL_PATH=Qwen/Qwen2.5-7B GENERATOR_NAME=qwen25_7b TASK_TYPE=general KNOWLEDGE_BASE=Skylion007/openwebtext TRAIN_SET_SIZE=4096 bash sample.sh
