@@ -14,22 +14,22 @@ VLLM_PORT=8000
 
 seed=45
 
-# pids=$(lsof -ti:$VLLM_PORT)
-# if [ -n "$pids" ]; then
-#     echo "Killing ${pids} on port ${VLLM_PORT}"
-#     echo ${pids} | xargs kill -9
-# fi
+pids=$(lsof -ti:$VLLM_PORT)
+if [ -n "$pids" ]; then
+    echo "Killing ${pids} on port ${VLLM_PORT}"
+    echo ${pids} | xargs kill -9
+fi
 
-# CUDA_VISIBLE_DEVICES="0" python -m vllm.entrypoints.openai.api_server \
-#         --model ${MODEL_PATH} \
-#         --max-model-len 32768 \
-#         --port $VLLM_PORT \
-#         --tensor-parallel-size 1 \
-#         --gpu-memory-utilization 0.95 \
-#         --trust-remote-code \
-#         --enable_prefix_caching \
-#         --served-model-name ${GENERATOR_NAME} \
-#         &> "${RUN_LOGS}/${GENERATOR_NAME}_vllm_port_${VLLM_PORT}_seed_${seed}.out" &
+CUDA_VISIBLE_DEVICES="0" python -m vllm.entrypoints.openai.api_server \
+        --model ${MODEL_PATH} \
+        --max-model-len 32768 \
+        --port $VLLM_PORT \
+        --tensor-parallel-size 1 \
+        --gpu-memory-utilization 0.95 \
+        --trust-remote-code \
+        --enable_prefix_caching \
+        --served-model-name ${GENERATOR_NAME} \
+        &> "${RUN_LOGS}/${GENERATOR_NAME}_vllm_port_${VLLM_PORT}_seed_${seed}.out" &
 
 python sample.py \
     --output_dir $OUTPUT_DIR \
