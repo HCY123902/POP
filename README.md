@@ -85,9 +85,9 @@ If are using a different reference model, change `model_name_or_path`, `dataset_
 
 ```
 @article{huang2026,
-    author = {},
+    author = {Chengyu Huang and Sheng-Yen Chou and Zhengxin Zhang and Claire Cardie},
     title = {Bootstrapping Post-training Signals for Open-ended Tasks via Rubric-based Self-play on Pre-training Text},
-    journal = {arXiv preprint arXiv:},
+    journal = {arXiv preprint arXiv:2604.20051},
     year = {2026}
 }
 ```
