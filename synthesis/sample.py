@@ -240,7 +240,7 @@ def get_verifier_scoring_response(llm, tokenizer, inputs, verifier_scoring_sampl
         "is_verifier_scoring_valid": 0,
     }
 
-    if not score or not evaluation:
+    if score == -1.0 or not evaluation:
         return res, cost
 
     res = {
@@ -813,13 +813,15 @@ def run_pipeline(example, idx, **kwargs):
 
         # random.shuffle(solver_answers_for_rubrics)
 
+        include_know_and_ref_ans_in_rubric = not args.no_know_in_rubric and args.use_knowledge
+
         verifier_prompt, verifier_msgs = get_prompt(
             role="verifier", 
             tokenizer=tokenizer, 
             inputs={
-                "knowledge": example["knowledge"] if not args.no_know_in_rubric else "None", 
+                "knowledge": example["knowledge"] if include_know_and_ref_ans_in_rubric else "None", 
                 "question": example["proposer_problem"], 
-                "ref_answer": example["proposer_ref_answer"],
+                "ref_answer": example["proposer_ref_answer"] if include_know_and_ref_ans_in_rubric else "None",
                 "answers": solver_answers_for_rubrics # We only take a part of the responses. Otherwise the context will explode.
             },
             task_type=args.task_type,
