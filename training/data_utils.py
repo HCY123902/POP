@@ -309,10 +309,9 @@ def get_response(
     prompt_messages: List[Dict[str, str]],
     response_messages: List[Dict[str, str]],
     tokenizer,
-    is_tw: bool = False, # Token weighted method has to start the response without any special tokens
 ):
     model = tokenizer.name_or_path
-    if any([keyword in model.casefold() for keyword in ["gemma3", "gemma-3", "qwen3", "qwen-3", "llama2", "llama-2"]]) or is_tw:
+    if any([keyword in model.casefold() for keyword in ["gemma3", "gemma-3", "qwen3", "qwen-3", "llama2", "llama-2"]]):
         response = template_fix(prompt, prompt_messages+response_messages, tokenizer)
     else:
         response = tokenizer.apply_chat_template(response_messages, tokenize=False)

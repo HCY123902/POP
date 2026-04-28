@@ -269,16 +269,3 @@ class DPOConfig(trl.DPOConfig):
     )
     optim: Optional[str] = field(default="rmsprop")
     remove_unused_columns: bool = field(default=False)
-
-
-@dataclass
-class CustomizedDPOConfig(DPOConfig):
-    """
-    Arguments related to the DPO training process itself. For all parameters, see: https://huggingface.co/docs/transformers/v4.39.3/en/main_classes/trainer#transformers.TrainingArguments
-    """
-
-    ref_model: str = field(default="")
-    self_judge: bool = field(default=False)
-    self_judge_output_path: Optional[str] = field(default="")
-    token_weighted: bool = field(default=False)
-    attn_source: Optional[str] = field(default=None)
